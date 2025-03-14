@@ -1,0 +1,38 @@
+$--colors: (
+  "primary": (
+    "base": #1f2937,
+  ),
+  "success": (
+    "base": #21ba45,
+  ),
+  "warning": (
+    "base": #f2711c,
+  ),
+  "danger": (
+    "base": #e71410,
+  ),
+  "error": (
+    "base": #db2828,
+  ),
+  "info": (
+    "base": #ececec,
+  ),
+);
+
+
+// You should use them in scss, because we calculate it by sass.
+// comment next lines to use default color
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  // do not use same name, it will override.
+  $colors: $--colors,
+);
+
+
+// if you want to import all
+// @use "element-plus/theme-chalk/src/index.scss" as *;
+
+// You can comment it to hide debug info.
+// @debug $--colors;
+
+// custom dark variables
+@use "./dark.scss";

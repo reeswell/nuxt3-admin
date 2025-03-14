@@ -1,0 +1,46 @@
+body {
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", SimHei, SimSun, KaiTi, Arial, sans-serif;
+  --el-overlay-color-lighter: rgba(52, 61, 52, 0.5);
+}
+
+html.dark {
+  background: #222;
+  color: white;
+}
+
+.icons {
+  fill: currentColor;
+}
+
+.el-dialog {
+  .el-dialog__headerbtn .el-dialog__close {
+    color: var(--c-primary-light) !important;
+  }
+
+  .el-dialog__headerbtn .el-dialog__close:hover {
+    color: var(--c-primary-active) !important;
+    transform: scale(1.15);
+  }
+
+}
+
+
+// 表格样式
+.el-table {
+  --el-table-header-bg-color: var(--c-background-gray);
+  --el-table-border-color: var(--c-border-color);
+
+  .el-table__placeholder {
+    width: 0 !important;
+  }
+
+  th {
+    background-color: var(--c-background-gray) !important;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  td {
+    color: var(--c-text-secondary);
+  }
+}

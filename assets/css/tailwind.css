@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+  :root {
+  --c-primary: #1f2937;
+  --c-primary-active: #1b222d;
+  --c-primary-light:  #374151; /* 比主色调更浅，透明度为50% */
+  --c-primary-dark:#111827; 
+
+  --c-text-primary: #1f2937;        
+  --c-text-secondary: #6b7280;   
+  --c-border-color: #e5e7eb;       
+  --c-background-light: #ffffff;     
+  --c-background-gray: #f9fafb;    
+
+  --c-primary-fade: rgba(31, 41, 55, 0.1); /* 比主色调更浅，透明度为10% */
+  --c-active-text-color: #2196f3; 
+  --c-text-color: #fff; /* 白色 */
+  --c-secondary: #f3f4f6;
+  --c-border: #eee;
+  --c-danger: #e71410;
+  --c-danger-active: #e71410e6; /* 比主色调更浅 */
+  --c-text-base: #333;
+  --c-bg-base: #fff;
+  --c-inverted:#fff;
+
+  --c-text-secondary: #686868;
+
+  --c-bg-btn-disabled: #a1a1a1;
+  --c-text-btn-disabled: #fff;
+  --c-text-btn-disabled-deeper: #a1a1a1;
+  --c-success: #21ba45;
+  --c-warning: #f2711c;
+  --c-error: #db2828;
+  }
+
+  .dark {
+    --c-primary: #1f2937;
+    --c-primary-active: #1b222d;/* 比主色调更深*/
+    --c-primary-light: rgba(31, 41, 55, 0.5); /* 比主色调更浅，透明度为50% */
+    --c-primary-fade: rgba(31, 41, 55, 0.1); /* 比主色调更浅，透明度为10% */
+    --c-secondary: #FF6C58;
+    --c-border: #eee;
+    --c-danger: #e71410;
+    --c-text-base: #333;
+    --c-bg-base: #fff;
+    --c-inverted:#fff;
+
+    --c-danger-active: #e71410e6; /* 比主色调更浅 */
+    --c-text-secondary: #686868;
+
+    --c-bg-btn-disabled: #a1a1a1;
+    --c-text-btn-disabled: #fff;
+    --c-text-btn-disabled-deeper: #a1a1a1;
+  }
+}
+
+@layer utilities {
+  .strike {
+		position: relative;
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 0px;
+			left: 0;
+			top: 48%;
+			transform: translateY(-50%);
+			background: #999999;
+			box-shadow: 0.5px 0.5px 0px 0.5px #999999;
+		}
+	}
+
+}
+
+.skeleton-loading-bg {
+  background: linear-gradient(
+    90deg,
+    rgba(190, 190, 190, 0.2) 25%,
+    rgba(129, 129, 129, 0.24) 37%,
+    rgba(190, 190, 190, 0.2) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0 50%;
+  }
+}
+
+/* Border colors */
+.border-base {
+  @apply border-[var(--c-border)];
+}
+.border-dark {
+  @apply border-[var(--c-border-dark)];
+}
+.border-strong {
+  @apply border-[var(--c-text-base)];
+}
+.border-bg-base {
+  @apply border-[var(--c-bg-base)];
+}
+
+
+.pc-container {
+  @apply container max-w-[1200px] mx-auto;
+}
+
+.bom-container {
+  @apply w-[1620px] mx-auto;
+}
+
+
+/* input */
+.input-base-focus {
+  @apply focus:outline-none;
+  border-color: var(--c-primary);
+}
+.input-base-disabled {
+  @apply disabled:pointer-events-none disabled:bg-gray-500/5 disabled:text-gray-500/50;
+}
+.input-base {
+  @apply p-2 rounded w-full bg-transparent border border-dark input-base-focus input-base-disabled;
+}
+.flex-center {
+  @apply items-center justify-center;
+}
+
+/* Buttons */
+.btn-base {
+  @apply text-center flex justify-center items-center cursor-pointer disabled:cursor-not-allowed;
+}
+
+.btn-solid {
+  @apply btn-base  rounded;
+  background-color: var(--c-primary);
+  color: var(--c-inverted);
+  &:hover {
+    background-color: var(--c-primary-active);
+  }
+}
+
+.btn-outline {
+  @apply btn-base  rounded;
+  color: var(--c-primary);
+  border-color: var(--c-primary);
+  border-width: 1px;
+  &:hover {
+    background-color: var(--c-primary-fade);
+  }
+}
+
+.btn-text {
+  @apply btn-base px-4 py-2;
+  color: var(--c-primary);
+  &:hover {
+    color: var(--c-primary-active);
+  }
+}
+
+.btn-action-icon {
+  @apply btn-base rounded-full h-9 w-9 flex items-center justify-center;
+  background-color: transparent;
+  color: var(--c-text-secondary);
+  &:hover {
+    background-color: var(--c-active);
+  }
+  &:disabled {
+    background-color: transparent;
+    color: var(--c-text-secondary);
+  }
+}
+
+.btn-danger {
+  @apply btn-base rounded text-white;
+  background-color: var(--c-danger);
+  &:hover {
+    background-color: var(--c-danger-active);
+  }
+}
+
+
+/* Text colors */
+.text-base {
+  @apply text-[var(--c-text-base)];
+}
+.text-code {
+  @apply text-[var(--c-text-code)];
+}
+.text-inverted {
+  @apply text-[var(--c-bg-base)];
+}
+
+.text-input {
+  @apply text-[var(--c-text-secondary)];
+}
+.text-input-light {
+  @apply text-[var(--c-text-secondary-light)];
+}
+
