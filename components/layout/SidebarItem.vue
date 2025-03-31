@@ -52,7 +52,7 @@ function renderElIcon(iconName: string) {
         </div>
       </template>
       <nuxt-link v-for="sub in item.submenu" :key="sub.path" :to="sub.path" class="menu-link ">
-        <el-menu-item :index="sub.path" >
+        <el-menu-item :index="sub.path">
           <div class="w-full flex items-center gap-1.5 pl-8">
             <template v-if="sub.icon">
               <el-icon v-if="sub.icon.startsWith('ElIcon')">

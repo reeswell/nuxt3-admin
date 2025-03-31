@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { FilterFormItem } from '~/types/table'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import type { FilterFormItem } from '~/types/table'
 import FilterTable from '~/components/common/FilterTable.vue'
 
 // 表格引用
@@ -17,7 +17,7 @@ const filterItems = reactive<FilterFormItem[]>([
     type: 'input',
     label: '销售单号',
     prop: 'orderNo',
-    placeholder: '请输入销售单号'
+    placeholder: '请输入销售单号',
   },
   {
     type: 'select',
@@ -29,14 +29,14 @@ const filterItems = reactive<FilterFormItem[]>([
       { label: '已审核', value: 'approved' },
       { label: '已发货', value: 'shipped' },
       { label: '已完成', value: 'completed' },
-      { label: '已取消', value: 'cancelled' }
-    ]
+      { label: '已取消', value: 'cancelled' },
+    ],
   },
   {
     type: 'input',
     label: '客户名称',
     prop: 'customerName',
-    placeholder: '请输入客户名称'
+    placeholder: '请输入客户名称',
   },
   {
     type: 'daterange',
@@ -46,8 +46,8 @@ const filterItems = reactive<FilterFormItem[]>([
     attrs: {
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
-      valueFormat: 'YYYY-MM-DD'
-    }
+      valueFormat: 'YYYY-MM-DD',
+    },
   },
   {
     type: 'select',
@@ -57,8 +57,8 @@ const filterItems = reactive<FilterFormItem[]>([
     options: [
       { label: '张三', value: 'zhangsan' },
       { label: '李四', value: 'lisi' },
-      { label: '王五', value: 'wangwu' }
-    ]
+      { label: '王五', value: 'wangwu' },
+    ],
   },
   {
     type: 'number',
@@ -67,8 +67,8 @@ const filterItems = reactive<FilterFormItem[]>([
     placeholder: '最小金额',
     attrs: {
       min: 0,
-      precision: 2
-    }
+      precision: 2,
+    },
   },
   {
     type: 'number',
@@ -77,16 +77,16 @@ const filterItems = reactive<FilterFormItem[]>([
     placeholder: '最大金额',
     attrs: {
       min: 0,
-      precision: 2
-    }
-  }
+      precision: 2,
+    },
+  },
 ])
 
 // 定义表格列
 const columns = [
   { prop: 'orderNo', label: '销售单号' },
   { prop: 'orderDate', label: '销售日期' },
-  { prop: 'customerName', label: '客户名称'},
+  { prop: 'customerName', label: '客户名称' },
   { prop: 'salesPerson', label: '销售员' },
   {
     prop: 'status',
@@ -97,18 +97,18 @@ const columns = [
         approved: '已审核',
         shipped: '已发货',
         completed: '已完成',
-        cancelled: '已取消'
+        cancelled: '已取消',
       }
       return statusMap[cellValue] || cellValue
-    }
+    },
   },
   { prop: 'totalAmount', label: '销售金额' },
   { prop: 'paymentStatus', label: '付款状态' },
-  { prop: 'operation', label: '操作', slot: true }
+  { prop: 'operation', label: '操作', slot: true },
 ]
 
 // 模拟查询数据
-const handleQuery = async (params) => {
+async function handleQuery(params) {
   loading.value = true
   try {
     // 模拟API请求
@@ -155,16 +155,16 @@ const handleQuery = async (params) => {
     }
 
     if (params.minAmount) {
-      filteredData = filteredData.filter(item => parseFloat(item.totalAmount) >= parseFloat(params.minAmount))
+      filteredData = filteredData.filter(item => Number.parseFloat(item.totalAmount) >= Number.parseFloat(params.minAmount))
     }
 
     if (params.maxAmount) {
-      filteredData = filteredData.filter(item => parseFloat(item.totalAmount) <= parseFloat(params.maxAmount))
+      filteredData = filteredData.filter(item => Number.parseFloat(item.totalAmount) <= Number.parseFloat(params.maxAmount))
     }
 
     if (params.orderDateRange && params.orderDateRange.length === 2) {
       const [startDate, endDate] = params.orderDateRange
-      filteredData = filteredData.filter(item => {
+      filteredData = filteredData.filter((item) => {
         const itemDate = new Date(item.orderDate)
         return itemDate >= new Date(startDate) && itemDate <= new Date(endDate)
       })
@@ -183,30 +183,32 @@ const handleQuery = async (params) => {
     tableData.value = filteredData.slice(startIndex, endIndex)
 
     return tableData.value
-  } catch (error) {
+  }
+  catch (error) {
     console.error('查询销售单失败:', error)
     ElMessage.error('查询销售单失败')
     return []
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
 // 查看详情
-const handleView = (row) => {
+function handleView(row) {
   ElMessage.info(`查看销售单: ${row.orderNo}`)
 }
 
 // 编辑销售单
-const handleEdit = (row) => {
+function handleEdit(row) {
   ElMessage.info(`编辑销售单: ${row.orderNo}`)
 }
 
 // 审核销售单
-const handleApprove = (row) => {
+function handleApprove(row) {
   ElMessageBox.confirm(`确认审核销售单 ${row.orderNo}?`, '审核确认', {
     confirmButtonText: '确认',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
   }).then(() => {
     ElMessage.success(`销售单 ${row.orderNo} 审核成功`)
     // 重新加载数据
@@ -217,11 +219,11 @@ const handleApprove = (row) => {
 }
 
 // 取消销售单
-const handleCancel = (row) => {
+function handleCancel(row) {
   ElMessageBox.confirm(`确认取消销售单 ${row.orderNo}?`, '取消确认', {
     confirmButtonText: '确认',
     cancelButtonText: '取消',
-    type: 'warning'
+    type: 'warning',
   }).then(() => {
     ElMessage.success(`销售单 ${row.orderNo} 已取消`)
     // 重新加载数据
@@ -232,17 +234,17 @@ const handleCancel = (row) => {
 }
 
 // 新增销售单
-const handleAdd = () => {
+function handleAdd() {
   ElMessage.info('新增销售单')
 }
 
 // 批量导出
-const handleExport = () => {
+function handleExport() {
   ElMessage.info('批量导出销售单')
 }
 
 // 表格行样式
-const tableRowClassName = ({ row }) => {
+function tableRowClassName({ row }) {
   if (row.status === 'cancelled') {
     return 'cancelled-row'
   }
@@ -251,7 +253,7 @@ const tableRowClassName = ({ row }) => {
 
 // 表格属性
 const tableProps = {
-  rowClassName: tableRowClassName
+  rowClassName: tableRowClassName,
 }
 </script>
 
@@ -273,8 +275,10 @@ const tableProps = {
       </div>
     </div>
 
-    <FilterTable ref="filterTableRef" :filter-items="filterItems" :columns="columns" :data="tableData"
-      :loading="loading" :total="total" :table-props="tableProps" @query="handleQuery">
+    <FilterTable
+      ref="filterTableRef" :filter-items="filterItems" :columns="columns" :data="tableData"
+      :loading="loading" :total="total" :table-props="tableProps" @query="handleQuery"
+    >
       <!-- 操作列 -->
       <template #operation="{ row }">
         <el-button type="primary" link size="small" @click="handleView(row)">
@@ -286,8 +290,10 @@ const tableProps = {
         <el-button v-if="row.status === 'pending'" type="success" link size="small" @click="handleApprove(row)">
           审核
         </el-button>
-        <el-button v-if="['pending', 'approved'].includes(row.status)" type="danger" link size="small"
-          @click="handleCancel(row)">
+        <el-button
+          v-if="['pending', 'approved'].includes(row.status)" type="danger" link size="small"
+          @click="handleCancel(row)"
+        >
           取消
         </el-button>
       </template>

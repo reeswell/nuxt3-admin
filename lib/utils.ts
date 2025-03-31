@@ -1,5 +1,3 @@
-
-
 export function filterEmptyProperties<T extends Record<string, any>>(obj: T): Partial<T> {
   return Object.entries(obj).reduce((acc, [key, value]) => {
     if (value != null && value !== '') {
@@ -8,4 +6,3 @@ export function filterEmptyProperties<T extends Record<string, any>>(obj: T): Pa
     return acc
   }, {} as Partial<T>)
 }
-

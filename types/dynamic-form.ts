@@ -6,9 +6,9 @@ import type {
   FormItemProps,
   FormProps,
   FormRules,
+  ISelectProps,
   InputNumberProps,
   InputProps,
-  ISelectProps,
   RadioGroupProps,
   SwitchProps,
 } from 'element-plus'

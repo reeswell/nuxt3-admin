@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { createResolver, useNuxt } from '@nuxt/kit'
+import { createResolver } from '@nuxt/kit'
 
 import type { BuildInfo } from './types'
 

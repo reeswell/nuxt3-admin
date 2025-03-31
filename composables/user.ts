@@ -2,6 +2,7 @@ import { useCookie } from 'nuxt/app'
 import { ElMessage } from 'element-plus'
 import { TOKEN_KEY } from '~/config/const'
 import type { LoginForm, User } from '~/types/user'
+
 export interface LoginResponse {
   access_token: string
   refresh_token: string
@@ -33,8 +34,6 @@ export function clearToken() {
   useCookie(TOKEN_KEY).value = ''
 }
 
-
-
 /**
  * 模拟获取用户信息 API 请求
  * @returns 用户信息
@@ -59,9 +58,10 @@ export async function fetchUserInfo(): Promise<User> {
       permissions: ['read', 'write', 'delete', 'admin'],
       status: 'active',
       lastLogin: new Date().toISOString(),
-      createdAt: '2023-01-01T00:00:00Z'
+      createdAt: '2023-01-01T00:00:00Z',
     }
-  } else {
+  }
+  else {
     return {
       id: 2,
       username: 'user',
@@ -71,7 +71,7 @@ export async function fetchUserInfo(): Promise<User> {
       permissions: ['read', 'write'],
       status: 'active',
       lastLogin: new Date().toISOString(),
-      createdAt: '2023-03-15T00:00:00Z'
+      createdAt: '2023-03-15T00:00:00Z',
     }
   }
 }
@@ -89,15 +89,17 @@ export async function login(user: LoginForm): Promise<LoginResponse> {
     return {
       access_token: `mock_token_${Date.now()}`,
       refresh_token: `mock_refresh_${Date.now()}`,
-      expires_in: 3600
+      expires_in: 3600,
     }
-  } else if (user.username === 'user' && user.password === 'user123') {
+  }
+  else if (user.username === 'user' && user.password === 'user123') {
     return {
       access_token: `mock_token_${Date.now()}`,
       refresh_token: `mock_refresh_${Date.now()}`,
-      expires_in: 3600
+      expires_in: 3600,
     }
-  } else {
+  }
+  else {
     // 模拟登录失败
     throw new Error('用户名或密码错误')
   }
@@ -122,14 +124,16 @@ export async function loginTo(user: LoginForm): Promise<User | null> {
     currentUser.value = userInfo
 
     return currentUser.value
-  } catch (error) {
+  }
+  catch (error) {
     // 处理登录失败
     clearToken()
     currentUser.value = null
 
     if (error instanceof Error) {
       ElMessage.error(error.message)
-    } else {
+    }
+    else {
       ElMessage.error('登录失败，请重试')
     }
 
@@ -156,14 +160,16 @@ export async function getUserInfo(): Promise<User | null> {
     const userInfo = await fetchUserInfo()
     currentUser.value = userInfo
     return currentUser.value
-  } catch (error) {
+  }
+  catch (error) {
     // 处理获取用户信息失败
     clearToken()
     currentUser.value = null
 
     if (error instanceof Error) {
       ElMessage.error(error.message)
-    } else {
+    }
+    else {
       ElMessage.error('获取用户信息失败')
     }
 
@@ -181,7 +187,6 @@ export async function signout() {
   currentUser.value = null
   navigateTo('/login')
 }
-
 
 /**
  * 退出登录

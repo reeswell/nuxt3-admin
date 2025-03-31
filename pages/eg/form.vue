@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { DynamicFormExpose } from '~/types/dynamic-form'
 import { User } from '@element-plus/icons-vue'
+import type { DynamicFormExpose } from '~/types/dynamic-form'
 import DynamicForm from '~/components/common/DynamicForm.vue'
 
 const dynamicFormRef = ref<DynamicFormExpose>()

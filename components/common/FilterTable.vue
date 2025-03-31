@@ -2,7 +2,7 @@
 import type { FormInstance, TableInstance } from 'element-plus'
 import { onMounted, reactive, ref } from 'vue'
 import { filterEmptyProperties } from '~/lib/utils'
-import type {  FilterTableProps, PaginationParams, TableData } from '~/types/table'
+import type { FilterTableProps, PaginationParams, TableData } from '~/types/table'
 
 const props = withDefaults(defineProps<FilterTableProps>(), {
   showPagination: true,

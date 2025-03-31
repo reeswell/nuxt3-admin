@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { FilterFormItem } from '~/types/table'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import type { FilterFormItem } from '~/types/table'
 import FilterTable from '~/components/common/FilterTable.vue'
 // 表格引用
 const filterTableRef = ref()
@@ -17,7 +17,7 @@ const userForm = reactive({
   username: '',
   email: '',
   role: '',
-  status: 'active'
+  status: 'active',
 })
 
 // 筛选项配置
@@ -26,13 +26,13 @@ const filterItems = ref<FilterFormItem[]>([
     type: 'input',
     label: '用户名',
     prop: 'username',
-    placeholder: '请输入用户名'
+    placeholder: '请输入用户名',
   },
   {
     type: 'input',
     label: '邮箱',
     prop: 'email',
-    placeholder: '请输入邮箱'
+    placeholder: '请输入邮箱',
   },
   {
     type: 'select',
@@ -41,8 +41,8 @@ const filterItems = ref<FilterFormItem[]>([
     placeholder: '请选择角色',
     options: [
       { label: '管理员', value: 'admin' },
-      { label: '普通用户', value: 'user' }
-    ]
+      { label: '普通用户', value: 'user' },
+    ],
   },
   {
     type: 'select',
@@ -51,8 +51,8 @@ const filterItems = ref<FilterFormItem[]>([
     placeholder: '请选择状态',
     options: [
       { label: '活跃', value: 'active' },
-      { label: '禁用', value: 'inactive' }
-    ]
+      { label: '禁用', value: 'inactive' },
+    ],
   },
   {
     type: 'daterange',
@@ -62,20 +62,20 @@ const filterItems = ref<FilterFormItem[]>([
     attrs: {
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
-      valueFormat: 'YYYY-MM-DD'
-    }
-  }
+      valueFormat: 'YYYY-MM-DD',
+    },
+  },
 ])
 
 // 表格列配置
 const columns = ref([
-  { prop: 'id', label: 'ID',width:'80px' },
-  { prop: 'username', label: '用户名'},
+  { prop: 'id', label: 'ID', width: '80px' },
+  { prop: 'username', label: '用户名' },
   { prop: 'email', label: '邮箱' },
   { prop: 'role', label: '角色' },
   { prop: 'status', label: '状态', slot: true },
-  { prop: 'createdAt', label: '创建时间', formatter: (row) => formatDate(row.createdAt) },
-  { prop: 'operation', label: '操作', slot: true,  }
+  { prop: 'createdAt', label: '创建时间', formatter: row => formatDate(row.createdAt) },
+  { prop: 'operation', label: '操作', slot: true },
 ])
 
 // 表格属性
@@ -83,21 +83,20 @@ const tableProps = {
   rowKey: 'id',
   border: true,
   stripe: true,
-  highlightCurrentRow: true
+  highlightCurrentRow: true,
 }
 
 // 表格事件
 const tableEvents = {
   'row-click': (row) => {
     console.log('点击了行:', row)
-  }
+  },
 }
 
 // 处理查询
 async function handleQuery(params) {
   loading.value = true
   try {
-
     // 模拟API请求
     await new Promise(resolve => setTimeout(resolve, 500))
 
@@ -114,7 +113,7 @@ async function handleQuery(params) {
         status: i % 5 === 0 ? 'inactive' : 'active',
         createdAt: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
         lastLogin: new Date(Date.now() - Math.floor(Math.random() * 1000000000)),
-        remark: i % 2 === 0 ? '这是一条备注信息' : ''
+        remark: i % 2 === 0 ? '这是一条备注信息' : '',
       })
     }
 
@@ -124,14 +123,14 @@ async function handleQuery(params) {
     // 用户名筛选
     if (params.username) {
       filteredData = filteredData.filter(item =>
-        item.username.toLowerCase().includes(params.username.toLowerCase())
+        item.username.toLowerCase().includes(params.username.toLowerCase()),
       )
     }
 
     // 邮箱筛选
     if (params.email) {
       filteredData = filteredData.filter(item =>
-        item.email.toLowerCase().includes(params.email.toLowerCase())
+        item.email.toLowerCase().includes(params.email.toLowerCase()),
       )
     }
 
@@ -153,7 +152,7 @@ async function handleQuery(params) {
       // 设置结束日期为当天的最后一毫秒，以便包含整个结束日期
       end.setHours(23, 59, 59, 999)
 
-      filteredData = filteredData.filter(item => {
+      filteredData = filteredData.filter((item) => {
         const createdDate = new Date(item.createdAt)
         return createdDate >= start && createdDate <= end
       })
@@ -175,16 +174,18 @@ async function handleQuery(params) {
 
     return {
       data: currentPageData,
-      total: filteredTotal
+      total: filteredTotal,
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('查询出错:', error)
     ElMessage.error('获取数据失败')
     return {
       data: [],
-      total: 0
+      total: 0,
     }
-  } finally {
+  }
+  finally {
     loading.value = false
   }
 }
@@ -207,8 +208,8 @@ function handleDelete(row) {
     {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
-      type: 'warning'
-    }
+      type: 'warning',
+    },
   ).then(() => {
     // 这里应该是实际的删除API调用
     ElMessage.success(`已删除用户: ${row.username}`)
@@ -231,12 +232,12 @@ function saveUser() {
 
 // 格式化日期
 function formatDate(date) {
-  if (!date) return ''
+  if (!date)
+    return ''
   const d = new Date(date)
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 </script>
-
 
 <template>
   <div class="user-management">
@@ -259,13 +260,13 @@ function formatDate(date) {
           {{ row.status === 'active' ? '活跃' : '禁用' }}
         </el-tag>
       </template>
-      
+
       <!-- 操作列 -->
       <template #operation="{ row }">
         <el-button size="small" type="primary" @click="handleEdit(row)">编辑</el-button>
         <el-button size="small" type="danger" @click="handleDelete(row)">删除</el-button>
       </template>
-      
+
       <!-- 展开行内容 -->
       <template #expand="{ row }">
         <div class="expand-detail">
@@ -276,7 +277,7 @@ function formatDate(date) {
         </div>
       </template>
     </FilterTable>
-    
+
     <!-- 编辑用户对话框 -->
     <el-dialog v-model="dialogVisible" title="编辑用户" width="500px">
       <el-form :model="userForm" label-width="100px">
@@ -295,8 +296,8 @@ function formatDate(date) {
         <el-form-item label="状态">
           <el-switch
             v-model="userForm.status"
-            :active-value="'active'"
-            :inactive-value="'inactive'"
+            active-value="active"
+            inactive-value="inactive"
           />
         </el-form-item>
       </el-form>
@@ -308,9 +309,7 @@ function formatDate(date) {
   </div>
 </template>
 
-
 <style scoped>
-
 h1 {
   margin-bottom: 20px;
 }

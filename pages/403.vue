@@ -1,6 +1,6 @@
 <script setup>
 definePageMeta({
-  layout: 'error', 
+  layout: 'error',
 })
 </script>
 

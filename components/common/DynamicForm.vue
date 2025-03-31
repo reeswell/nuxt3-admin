@@ -1,8 +1,8 @@
 <!-- components/DynamicForm.vue -->
 <script lang="ts" setup>
 import type { FormInstance } from 'element-plus'
-import type { DynamicFormExpose, DynamicFormProps } from '~/types/dynamic-form'
 import { computed, provide, reactive, ref, watch } from 'vue'
+import type { DynamicFormExpose, DynamicFormProps } from '~/types/dynamic-form'
 
 const props = withDefaults(defineProps<DynamicFormProps>(), {
   formComList: () => [],
