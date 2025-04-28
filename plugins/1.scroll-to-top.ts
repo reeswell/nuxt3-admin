@@ -1,0 +1,11 @@
+import { defineNuxtPlugin } from 'nuxt/app'
+
+export default defineNuxtPlugin(() => {
+  return {
+    provide: {
+      scrollToTop: () => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+      },
+    },
+  }
+})

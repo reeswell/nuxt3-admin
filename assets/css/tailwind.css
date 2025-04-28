@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .strike {
+		position: relative;
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 0px;
+			left: 0;
+			top: 48%;
+			transform: translateY(-50%);
+			background: #999999;
+			box-shadow: 0.5px 0.5px 0px 0.5px #999999;
+		}
+	}
+
+}
+
+.skeleton-loading-bg {
+  background: linear-gradient(
+    90deg,
+    rgba(190, 190, 190, 0.2) 25%,
+    rgba(129, 129, 129, 0.24) 37%,
+    rgba(190, 190, 190, 0.2) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.4s ease infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0 50%;
+  }
+}
+
+
+.pc-container {
+  @apply container max-w-[1200px] mx-auto;
+}
+
+.bom-container {
+  @apply w-[1620px] mx-auto;
+}
+
+
+/* Border colors */
+.border-base {
+  @apply border-[var(--el-border-color)];
+}
+
+
+
+.border-dark {
+  @apply border-[var(--el-border-color)];
+}
+
+
+.pc-container {
+  @apply container max-w-[1200px] mx-auto;
+}
+
+.bom-container {
+  @apply w-[1620px] mx-auto;
+}
+
+
+/* input */
+.input-base-focus {
+  @apply focus:outline-none;
+  border-color: var(--primary-color);
+}
+.input-base-disabled {
+  @apply disabled:pointer-events-none disabled:bg-gray-500/5 disabled:text-gray-500/50;
+}
+.input-base {
+  @apply p-2 rounded w-full bg-transparent border border-dark input-base-focus input-base-disabled;
+}
+.flex-center {
+  @apply items-center justify-center;
+}
+
+/* Buttons */
+.btn-base {
+  @apply text-center flex justify-center items-center cursor-pointer disabled:cursor-not-allowed;
+}
+
+.btn-solid {
+  @apply btn-base  rounded;
+  background-color: var(--primary-color);
+  color: var(--el-bg-color);
+  &:hover {
+    background-color: var(--primary-color-active);
+  }
+}p
+
+.btn-outline {
+  @apply btn-base  rounded;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  border-width: 1px;
+  &:hover {
+    background-color: var(--el-color-primary-light-3);
+  }
+}
+
+.btn-text {
+  @apply btn-base px-4 py-2;
+  color: var(--primary-color);
+  &:hover {
+    color: var(--primary-color-active);
+  }
+}
+
+.btn-action-icon {
+  @apply btn-base rounded-full h-9 w-9 flex items-center justify-center;
+  background-color: transparent;
+  color: var(--el-text-color-secondary);
+  &:hover {
+    background-color: var(--c-active);
+  }
+  &:disabled {
+    background-color: transparent;
+    color: var(--el-text-color-secondary);
+  }
+}
+
+.btn-danger {
+  @apply btn-base rounded text-white;
+  background-color: var(--danger-color);
+  &:hover {
+    background-color: var(--danger-deep-color);
+  }
+}
+
+
+/* Text colors */
+.text-base {
+  @apply text-[var(--c-text-base)];
+}
+
+.text-input {
+  @apply text-[var(--el-text-color-secondary)];
+}
