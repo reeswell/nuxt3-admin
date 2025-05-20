@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { CommandScope, QueryResult, QueryResultItem } from '~/composables/command'
-import type { SearchResult } from '~/types'
 import { Search, Sunny } from '@element-plus/icons-vue'
-import SearchResultSkeleton from '~/components/search/SearchResultSkeleton.vue'
-import { useCommandRegistry } from '~/composables/command'
 import CommandItem from './CommandItem.vue'
 import CommandKey from './CommandKey.vue'
+import type { CommandScope, QueryResult, QueryResultItem } from '~/composables/command'
+import type { SearchResult } from '~/types'
+import SearchResultSkeleton from '~/components/search/SearchResultSkeleton.vue'
+import { useCommandRegistry } from '~/composables/command'
 
 const emit = defineEmits<{
   (event: 'close'): void

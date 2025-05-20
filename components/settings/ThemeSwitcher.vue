@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import ColorRadioGroup from './ColorRadioGroup.vue'
+
 const dialogVisible = defineModel<boolean>('dialogVisible')
 
 const { currentTheme, isDark, updateTheme, resetTheme } = useTheme()
-
-
 </script>
 
 <template>
@@ -15,7 +14,7 @@ const { currentTheme, isDark, updateTheme, resetTheme } = useTheme()
       </el-form-item> -->
       <el-form-item label="主色：">
         <el-color-picker v-model="currentTheme.colors.primary" />
-        <ColorRadioGroup class="ml-4" v-model="currentTheme.colors.primary" />
+        <ColorRadioGroup v-model="currentTheme.colors.primary" class="ml-4" />
       </el-form-item>
       <el-form-item label="消息色：">
         <el-color-picker v-model="currentTheme.colors.info" />

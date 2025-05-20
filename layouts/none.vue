@@ -9,6 +9,7 @@ onMounted(() => {
   initTheme()
 })
 </script>
+
 <template>
   <slot />
 </template>

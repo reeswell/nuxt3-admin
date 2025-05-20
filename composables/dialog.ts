@@ -1,7 +1,6 @@
-import type { ConfirmDialogChoice, ConfirmDialogOptions } from '~/types'
 import { until } from '@vueuse/core'
 import { ref } from 'vue'
-
+import type { ConfirmDialogChoice, ConfirmDialogOptions } from '~/types'
 
 export const themeDialog = ref<boolean>(false)
 

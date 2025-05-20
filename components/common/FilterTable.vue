@@ -104,33 +104,47 @@ onMounted(() => {
     <!-- 筛选表单 -->
     <el-form v-if="filterItems.length" ref="filterFormEl" :model="filterForm" inline class="filter-form">
       <div class="filter-form-grid">
-        <el-form-item v-for="item in filterItems" :key="item.prop" :label="item.label" :prop="item.prop"
-          :rules="item.rules">
+        <el-form-item
+          v-for="item in filterItems" :key="item.prop" :label="item.label" :prop="item.prop"
+          :rules="item.rules"
+        >
           <!-- 输入框 -->
-          <el-input v-if="item.type === 'input'" v-model="filterForm[item.prop]" :placeholder="item.placeholder"
-            v-bind="item.attrs" clearable @keyup.enter="handleSearch" />
+          <el-input
+            v-if="item.type === 'input'" v-model="filterForm[item.prop]" :placeholder="item.placeholder"
+            v-bind="item.attrs" clearable @keyup.enter="handleSearch"
+          />
 
           <!-- 选择框 -->
-          <el-select v-else-if="item.type === 'select'" v-model="filterForm[item.prop]" :placeholder="item.placeholder"
-            v-bind="item.attrs" clearable>
+          <el-select
+            v-else-if="item.type === 'select'" v-model="filterForm[item.prop]" :placeholder="item.placeholder"
+            v-bind="item.attrs" clearable
+          >
             <el-option v-for="option in item.options" :key="option.value" :label="option.label" :value="option.value" />
           </el-select>
 
           <!-- 日期选择器 -->
-          <el-date-picker v-else-if="item.type === 'date'" v-model="filterForm[item.prop]" :type="item.type"
-            :placeholder="item.placeholder" v-bind="item.attrs" />
+          <el-date-picker
+            v-else-if="item.type === 'date'" v-model="filterForm[item.prop]" :type="item.type"
+            :placeholder="item.placeholder" v-bind="item.attrs"
+          />
 
           <!-- 日期范围选择器 -->
-          <el-date-picker v-else-if="item.type === 'daterange'" v-model="filterForm[item.prop]" type="daterange"
-            :placeholder="item.placeholder" v-bind="item.attrs" />
+          <el-date-picker
+            v-else-if="item.type === 'daterange'" v-model="filterForm[item.prop]" type="daterange"
+            :placeholder="item.placeholder" v-bind="item.attrs"
+          />
 
           <!-- 级联选择器 -->
-          <el-cascader v-else-if="item.type === 'cascader'" v-model="filterForm[item.prop]" :options="item.options"
-            :placeholder="item.placeholder" v-bind="item.attrs" />
+          <el-cascader
+            v-else-if="item.type === 'cascader'" v-model="filterForm[item.prop]" :options="item.options"
+            :placeholder="item.placeholder" v-bind="item.attrs"
+          />
 
           <!-- 数字输入框 -->
-          <el-input-number v-else-if="item.type === 'number'" v-model="filterForm[item.prop]"
-            :placeholder="item.placeholder" v-bind="item.attrs" />
+          <el-input-number
+            v-else-if="item.type === 'number'" v-model="filterForm[item.prop]"
+            :placeholder="item.placeholder" v-bind="item.attrs"
+          />
         </el-form-item>
       </div>
       <div class="filter-form-buttons">
@@ -138,15 +152,15 @@ onMounted(() => {
           <el-button type="primary" @click="handleSearch">查询</el-button>
           <el-button @click="resetFilter">重置</el-button>
           <slot name="filterOperation" />
-
         </el-form-item>
-
       </div>
     </el-form>
 
     <!-- 表格 -->
-    <el-table v-bind="tableProps" ref="tableEl" v-loading="loading" show-overflow-tooltip :data="data" border
-      style="width: 100%" v-on="tableEvents">
+    <el-table
+      v-bind="tableProps" ref="tableEl" v-loading="loading" show-overflow-tooltip :data="data" border
+      style="width: 100%" v-on="tableEvents"
+    >
       <el-table-column v-if="selection" :selectable="selectable" type="selection" width="55" />
       <el-table-column v-if="expand" type="expand">
         <template #default="{ row }">
@@ -155,8 +169,10 @@ onMounted(() => {
       </el-table-column>
 
       <template v-for="col in columns" :key="col.prop">
-        <el-table-column :prop="col.prop" :label="col.label" :width="col.width" :align="col.align || 'center'"
-          :fixed="col.fixed" :sortable="col.sortable">
+        <el-table-column
+          :prop="col.prop" :label="col.label" :width="col.width" :align="col.align || 'center'"
+          :fixed="col.fixed" :sortable="col.sortable"
+        >
           <template #default="scope">
             <slot v-if="col.slot" :name="col.prop" :row="scope.row" :column="col" :index="scope.$index" />
             <template v-else>
@@ -172,9 +188,11 @@ onMounted(() => {
 
     <!-- 分页 -->
     <div v-if="showPagination && total > 0" class="pagination-container">
-      <el-pagination v-model:current-page="pagination.page" v-model:page-size="pagination.limit" :page-sizes="pageSizes"
+      <el-pagination
+        v-model:current-page="pagination.page" v-model:page-size="pagination.limit" :page-sizes="pageSizes"
         :total="total" layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange"
-        @current-change="handlePageChange" />
+        @current-change="handlePageChange"
+      />
     </div>
   </div>
 </template>

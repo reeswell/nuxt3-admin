@@ -5,7 +5,7 @@ export default defineNuxtRouteMiddleware((to) => {
 })
 
 async function handleAuth(to: RouteLocationNormalized) {
-  const {  getUserInfo } = useUser()
+  const { getUserInfo } = useUser()
   const whiteList = ['/login', '/404', '/401']
 
   // 获取最新的用户信息

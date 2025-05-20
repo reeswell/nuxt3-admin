@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useIsMac } from '~/composables/misc';
+import { useIsMac } from '~/composables/misc'
 
 const { name } = defineProps<{
   name: string

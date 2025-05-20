@@ -8,8 +8,6 @@ export interface LoginResponse {
   expires_in: number
 }
 
-
-
 /**
  * 模拟获取用户信息 API 请求
  * @returns 用户信息
@@ -80,12 +78,10 @@ export async function login(user: LoginForm): Promise<LoginResponse> {
   }
 }
 
-
 export const currentUser = ref<User | null>(null)
 export const isLogin = ref(false)
 
-
-export const useUser = () => {
+export function useUser() {
   // 使用 ref 存储用户状态
 
   // 获取 token
@@ -122,7 +118,8 @@ export const useUser = () => {
       currentUser.value = userInfo
       isLogin.value = true
       return userInfo
-    } catch (error) {
+    }
+    catch (error) {
       clearToken()
       currentUser.value = null
       isLogin.value = false
@@ -137,15 +134,14 @@ export const useUser = () => {
       setToken(access_token)
       const userInfo = await getUserInfo()
       return userInfo
-    } catch (error) {
+    }
+    catch (error) {
       clearToken()
       currentUser.value = null
       isLogin.value = false
       throw error
     }
   }
-
-
 
   // 登出
   const logout = () => {
@@ -160,6 +156,6 @@ export const useUser = () => {
     loginTo,
     getUserInfo,
     logout,
-    getToken
+    getToken,
   }
 }

@@ -1,5 +1,5 @@
-import type { HEX, HEX_VALUE, HSL, RGB } from '~/types/color'
 import { HEX_MAP, RGBUnit } from './constants'
+import type { HEX, HEX_VALUE, HSL, RGB } from '~/types/color'
 
 /**
  * RGB颜色转HSL颜色值

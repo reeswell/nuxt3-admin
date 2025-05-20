@@ -1,5 +1,5 @@
-import type { HEX } from '~/types/color'
 import { hslToHex, rgbToHex } from './converter'
+import type { HEX } from '~/types/color'
 
 export function normalizationColor(color: string): HEX {
   // eslint-disable-next-line regexp/no-dupe-disjunctions

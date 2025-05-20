@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { ConfirmDialogChoice } from '~/types'
 import { useEventListener } from '@vueuse/core'
+import ModalConfirm from './ModalConfirm.vue'
+import ModalDialog from './ModalDialog.vue'
+import type { ConfirmDialogChoice } from '~/types'
 import CommandPanel from '~/components/command/CommandPanel.vue'
 import MagickeysKeyboardShortcuts from '~/components/magickeys/MagickeysKeyboardShortcuts.vue'
 import ThemeSwitcher from '~/components/settings/ThemeSwitcher.vue'
 import { closeCommandPanel, closeKeyboardShortcuts, isCommandPanelOpen, isConfirmDialogOpen, isKeyboardShortcutsDialogOpen, openCommandPanel, themeDialog } from '~/composables/dialog'
-import ModalConfirm from './ModalConfirm.vue'
-import ModalDialog from './ModalDialog.vue'
 
 const isMac = useIsMac()
 
@@ -47,7 +47,6 @@ function handleConfirmChoice(choice: ConfirmDialogChoice) {
     <MagickeysKeyboardShortcuts @close="closeKeyboardShortcuts()" />
   </ModalDialog>
   <ThemeSwitcher v-model="themeDialog" />
-
 </template>
 
 <style>

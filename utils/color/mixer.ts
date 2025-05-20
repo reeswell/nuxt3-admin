@@ -1,6 +1,6 @@
-import type { GenColorList, HEX, RGB } from '~/types/color'
 import { hexToRGB, rgbToHex } from './converter'
 import { normalizationColor } from './normalizer'
+import type { GenColorList, HEX, RGB } from '~/types/color'
 
 // 混合基础色获取
 export function getMixColorFromVar(isDark?: boolean) {

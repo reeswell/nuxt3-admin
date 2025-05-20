@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Download, Plus } from '@element-plus/icons-vue'
 import type { FilterFormItem } from '~/types/table'
 import FilterTable from '~/components/common/FilterTable.vue'
-import { Download, Plus } from '@element-plus/icons-vue'
 
 interface FullMockData {
   orderNo: string
@@ -257,7 +257,7 @@ function handleExport() {
 }
 
 // 表格行样式
-function tableRowClassName({row}) {
+function tableRowClassName({ row }) {
   if (row.status === 'cancelled') {
     return 'cancelled-row'
   }
@@ -272,16 +272,17 @@ const tableProps = {
 
 <template>
   <div class="sales-order-list">
-
-    <FilterTable ref="filterTableRef" :filter-items="filterItems" :columns="columns" :data="tableData"
-      :loading="loading" :total="total" :table-props="tableProps" @query="handleQuery">
+    <FilterTable
+      ref="filterTableRef" :filter-items="filterItems" :columns="columns" :data="tableData"
+      :loading="loading" :total="total" :table-props="tableProps" @query="handleQuery"
+    >
       <!-- 操作列 -->
       <template #filterOperation>
         <el-button type="primary" :icon="Plus" @click="handleAdd">
           新增销售单
         </el-button>
         <el-button :icon="Download" @click="handleExport">
-         导出
+          导出
         </el-button>
       </template>
       <template #operation="{ row }">
@@ -294,8 +295,10 @@ const tableProps = {
         <el-button v-if="row.status === 'pending'" type="success" link size="small" @click="handleApprove(row)">
           审核
         </el-button>
-        <el-button v-if="['pending', 'approved'].includes(row.status)" type="danger" link size="small"
-          @click="handleCancel(row)">
+        <el-button
+          v-if="['pending', 'approved'].includes(row.status)" type="danger" link size="small"
+          @click="handleCancel(row)"
+        >
           取消
         </el-button>
       </template>

@@ -7,7 +7,6 @@ export interface BuildInfo {
   env: 'preview' | 'canary' | 'dev' | 'release'
 }
 
-
 export interface ConfirmDialogOptions {
   title?: string
   description?: string
@@ -30,7 +29,6 @@ export interface UserInfo {
   level: number
   account_type: number
 }
-
 
 export interface SidebarRouteItem {
   name: string

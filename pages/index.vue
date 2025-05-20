@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TagProps } from 'element-plus'
 import { ElMessage } from 'element-plus'
-import { ref, onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 interface Item { type: TagProps['type'], label: string }
 
@@ -105,21 +105,21 @@ const cssVarNames = [
 const colors = ref<Record<string, string>>({})
 
 // 获取CSS变量的实际颜色值
-const getCSSVariableValue = (varName: string): string => {
+function getCSSVariableValue(varName: string): string {
   return getComputedStyle(document.documentElement)
     .getPropertyValue(`--${varName}`)
     .trim()
 }
 
 // 初始化颜色值
-const initColors = () => {
-  cssVarNames.forEach(varName => {
+function initColors() {
+  cssVarNames.forEach((varName) => {
     colors.value[varName] = getCSSVariableValue(varName)
   })
 }
 
 // 复制颜色值
-const copyColor = (color: string) => {
+function copyColor(color: string) {
   navigator.clipboard.writeText(`--${color}`)
   ElMessage.success(`已复制颜色值：--${color}`)
 }

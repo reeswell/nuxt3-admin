@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { CommandScopeNames } from '~/composables/command'
 import type { SidebarRouteItem } from '~/types'
 
 const props = defineProps<{
@@ -14,7 +13,6 @@ function renderElIcon(iconName: string) {
     import(`@element-plus/icons-vue`).then(module => module[_iconName as keyof typeof module]),
   )
 }
-
 
 function createCommand(scope: string, item: SidebarRouteItem) {
   const { path, name, icon = '' } = item
@@ -46,7 +44,7 @@ function registerRoute() {
   }
 
   item.submenu?.forEach(sub =>
-    useCommand(createCommand(topItem.name, sub))
+    useCommand(createCommand(topItem.name, sub)),
   )
 }
 onMounted(() => {
@@ -55,16 +53,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <nuxt-link v-if="!item.submenu || item.submenu.length === 0" :to="item.path"
-    :target="item.path.startsWith('http') ? '_blank' : undefined" class="menu-link">
+  <nuxt-link
+    v-if="!item.submenu || item.submenu.length === 0" :to="item.path"
+    :target="item.path.startsWith('http') ? '_blank' : undefined" class="menu-link"
+  >
     <el-menu-item :key="item.path" :index="item.path" class="submenu-title-noDropdown">
       <div class="flex items-center gap-1.5 text-white ">
         <template v-if="item.icon">
           <el-icon v-if="item.icon.startsWith('ElIcon')">
             <component :is="renderElIcon(item.icon)" />
           </el-icon>
-          <svg-icon v-else :name="item.icon"
-            class="inline-flex justify-center items-center w-6 mr-[5px] h-[18px] flex-none aside-menu-item-active font-bold" />
+          <svg-icon
+            v-else :name="item.icon"
+            class="inline-flex justify-center items-center w-6 mr-[5px] h-[18px] flex-none aside-menu-item-active font-bold"
+          />
         </template>
         <span>{{ item.name }}</span>
       </div>
@@ -78,15 +80,19 @@ onMounted(() => {
             <el-icon v-if="item.icon.startsWith('ElIcon')">
               <component :is="renderElIcon(item.icon)" />
             </el-icon>
-            <svg-icon v-else :name="item.icon"
-              class="inline-flex justify-center items-center w-6 mr-[5px] h-[18px] flex-none aside-menu-item-active font-bold" />
+            <svg-icon
+              v-else :name="item.icon"
+              class="inline-flex justify-center items-center w-6 mr-[5px] h-[18px] flex-none aside-menu-item-active font-bold"
+            />
           </template>
           <span>{{ item.name }}</span>
         </div>
       </template>
-      <component :is="sub?.submenu?.length ? 'div' : 'nuxt-link'" v-for="sub in item.submenu"
+      <component
+        :is="sub?.submenu?.length ? 'div' : 'nuxt-link'" v-for="sub in item.submenu"
         :key="sub.path" :to="sub?.submenu?.length ? '' : sub.path"
-         class="menu-link">
+        class="menu-link"
+      >
         <SidebarItem :item="sub" :level="level + 1" :top-item="topItem" />
       </component>
     </el-sub-menu>

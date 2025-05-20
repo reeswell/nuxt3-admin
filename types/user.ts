@@ -3,8 +3,6 @@ export interface LoginForm {
   password: string
 }
 
-
-
 export interface User {
   id: number
   username: string

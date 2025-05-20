@@ -1,10 +1,10 @@
-import type { SearchResult } from '~/types'
 import { tryOnScopeDispose } from '@vueuse/core'
 import Fuse from 'fuse.js'
 import { defineStore } from 'pinia'
 import { sidebarRoutes } from './sidebar'
+import type { SearchResult } from '~/types'
 
-const scopes = [ '',...sidebarRoutes.value.map((item)=> item.name)] as const
+const scopes = ['', ...sidebarRoutes.value.map(item => item.name)] as const
 
 export type CommandScopeNames = typeof scopes[number]
 

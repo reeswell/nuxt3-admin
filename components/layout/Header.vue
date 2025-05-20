@@ -4,7 +4,7 @@ import VersionInfo from '~/components/common/VersionInfo.vue'
 import SearchWidget from '~/components/search/SearchWidget.vue'
 import { openThemeDialog } from '~/composables/dialog'
 import { sidebarRoutes } from '~/composables/sidebar'
-import { useUser,currentUser } from '~/composables/user'
+import { currentUser, useUser } from '~/composables/user'
 
 const { logout } = useUser()
 const { currentRoute } = useRouter()
@@ -31,7 +31,8 @@ watchEffect(() => {
 
 <template>
   <nav
-    class="header-nav top-0 inset-x-0 fixed  z-30  w-screen lg:w-auto h-14 box-border px-2 py-3 flex justify-between items-center">
+    class="header-nav top-0 inset-x-0 fixed  z-30  w-screen lg:w-auto h-14 box-border px-2 py-3 flex justify-between items-center"
+  >
     <div class="flex justify-center items-center">
       <slot />
       <div class="ml-4 text-sm text-[#97a8be] hidden md:block">{{ title }} </div>
@@ -43,14 +44,18 @@ watchEffect(() => {
       <div class="mr-20 hidden md:block">
         <SearchWidget />
       </div>
-      <SvgIcon name="theme" class="w-5 h-5 text-[var(--warning-color)] cursor-pointer hidden md:block"
-        @click="openThemeDialog" />
+      <SvgIcon
+        name="theme" class="w-5 h-5 text-[var(--warning-color)] cursor-pointer hidden md:block"
+        @click="openThemeDialog"
+      />
 
       <el-dropdown @visible-change="handleDropdownVisible">
         <div class="el-dropdown-link focus:outline-none text-primary flex justify-center items-center">
           {{ currentUser?.username || '管理员' }}
-          <el-icon class="el-icon--right transition-transform duration-300"
-            :class="[isDropdownVisible ? 'rotate-0' : '-rotate-90']">
+          <el-icon
+            class="el-icon--right transition-transform duration-300"
+            :class="[isDropdownVisible ? 'rotate-0' : '-rotate-90']"
+          >
             <ArrowDown />
           </el-icon>
         </div>

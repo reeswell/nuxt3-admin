@@ -1,6 +1,6 @@
-import type { SearchResult, SidebarRouteItem } from '~/types'
 import { resolveUnref } from '@vueuse/core'
 import routes from './sidebar/routes'
+import type { SearchResult, SidebarRouteItem } from '~/types'
 
 export function useSearch(query: MaybeRefOrGetter<string>) {
   const done = ref(false)

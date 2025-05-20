@@ -88,13 +88,13 @@ const tableProps = {
 
 // 表格事件
 const tableEvents = {
-  'row-click': (row:any) => {
+  'row-click': (row: any) => {
     console.log('点击了行:', row)
   },
 }
 
 // 处理查询
-async function handleQuery(params:any) {
+async function handleQuery(params: any) {
   loading.value = true
   try {
     // 模拟API请求
@@ -191,7 +191,7 @@ async function handleQuery(params:any) {
 }
 
 // 编辑用户
-function handleEdit(row:any) {
+function handleEdit(row: any) {
   userForm.id = row.id
   userForm.username = row.username
   userForm.email = row.email
@@ -201,7 +201,7 @@ function handleEdit(row:any) {
 }
 
 // 删除用户
-function handleDelete(row:any) {
+function handleDelete(row: any) {
   ElMessageBox.confirm(
     `确定要删除用户 ${row.username} 吗？`,
     '警告',

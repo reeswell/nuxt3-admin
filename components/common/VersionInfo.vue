@@ -2,7 +2,6 @@
 import { useAppConfig } from 'nuxt/app'
 
 const { version } = useAppConfig().buildInfo
-
 </script>
 
 <template>
