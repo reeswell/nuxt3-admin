@@ -148,11 +148,9 @@ onMounted(() => {
         </el-form-item>
       </div>
       <div class="filter-form-buttons">
-        <el-form-item>
-          <el-button type="primary" @click="handleSearch">查询</el-button>
-          <el-button @click="resetFilter">重置</el-button>
-          <slot name="filterOperation" />
-        </el-form-item>
+        <el-button type="primary" @click="handleSearch">查询</el-button>
+        <el-button @click="resetFilter">重置</el-button>
+        <slot name="filterOperation" />
       </div>
     </el-form>
 
@@ -249,9 +247,15 @@ onMounted(() => {
     }
 
     .filter-form-buttons {
-      text-align: right;
       padding-top: 16px;
-      border-top: 1px solid #ebeef5;
+      padding-bottom: 16px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+      :deep(.el-button) {
+        margin-left: 0;
+      }
     }
   }
 
