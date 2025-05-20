@@ -3,22 +3,35 @@ import { Expand, Fold } from '@element-plus/icons-vue'
 import Header from '~/components/layout/Header.vue'
 import Sidebar from '~/components/layout/Sidebar.vue'
 import ModalContainer from '~/components/modal/ModalContainer.vue'
+import { useIsMobile } from '~/composables/useIsMobile'
 
-// const router = useRouter()
-
+const { isMobile } = useIsMobile()
 const isSidebarCollapsed = ref(false)
 
-// router.beforeEach(() => {
-//   isSidebarCollapsed.value = true
-// })
+watch(isMobile, (newValue) => {
+  isSidebarCollapsed.value = newValue
+}, { immediate: true })
 
 function toggleSidebar() {
   isSidebarCollapsed.value = !isSidebarCollapsed.value
 }
+
+function handleOverlayClick() {
+  if (isMobile.value) {
+    isSidebarCollapsed.value = true
+  }
+}
 </script>
 
 <template>
-  <div class="app-container" :class="{ 'sidebar-collapsed': isSidebarCollapsed }">
+  <div
+    class="app-container" :class="{
+      'sidebar-collapsed': isSidebarCollapsed,
+      'is-mobile': isMobile,
+    }"
+  >
+    <!-- 遮罩层 -->
+    <div v-if="isMobile && !isSidebarCollapsed" class="sidebar-overlay" @click="handleOverlayClick" />
     <!-- 侧边栏 -->
     <aside class="sidebar">
       <Sidebar />
@@ -54,7 +67,6 @@ $header-height: 3.5rem; // 56px
 $transition-duration: 0.28s; // 保持一致的过渡时间
 $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓动函数
 
-// 应用容器
 .app-container {
   position: relative;
   height: 100vh;
@@ -62,11 +74,9 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓
   overflow-x: hidden;
   background-color: var(--el-bg-color-page, #f5f7fa);
 
-  // 确保所有过渡效果同步
   --transition: transform $transition-duration $transition-timing;
 }
 
-// 侧边栏
 .sidebar {
   position: fixed;
   top: 0;
@@ -75,7 +85,6 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓
   width: $sidebar-width;
   height: 100%;
 
-  // 使用transform代替left
   transform: translateX(0);
   transition: var(--transition);
 
@@ -83,31 +92,26 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓
   transform-style: preserve-3d;
   backface-visibility: hidden;
 
-  // 折叠状态
   .sidebar-collapsed & {
     transform: translateX(-$sidebar-width);
   }
 }
 
-// 主容器包装 - 关键改变：使用transform代替margin
 .main-wrapper {
   position: relative;
-  margin-left: 0; // 不使用margin过渡
-  padding-left: $sidebar-width; // 使用padding代替
+  margin-left: 0;
+  padding-left: $sidebar-width;
   min-height: 100vh;
 
-  // 关键：使用transform代替margin-left，保持与侧边栏同步
   transform: translateX(0);
   transition: var(--transition), padding $transition-duration $transition-timing;
 
-  // 折叠状态
   .sidebar-collapsed & {
     padding-left: $collapsed-width;
-    transform: translateX(0); // 保持不变
+    transform: translateX(0);
   }
 }
 
-// 头部
 .header {
   position: fixed;
   top: 0;
@@ -118,17 +122,14 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓
   background-color: white;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 
-  // 使用transform与侧边栏保持同步
   transform: translateX($sidebar-width);
   transition: var(--transition), width $transition-duration $transition-timing;
 
-  // 折叠状态
   .sidebar-collapsed & {
     width: 100%;
     transform: translateX(0);
   }
 
-  // 折叠按钮
   .toggle-button {
     display: flex;
     justify-content: center;
@@ -143,7 +144,6 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓
   }
 }
 
-// 主内容区域
 .main-content {
   padding-top: calc($header-height + 1rem);
   padding-right: 12px;
@@ -158,21 +158,49 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓
   }
 }
 
-// 媒体查询
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  transition: opacity 0.3s;
+}
+
+.is-mobile {
+  .sidebar {
+    z-index: 1002;
+  }
+
+  &:not(.sidebar-collapsed) {
+    .main-wrapper {
+      transform: translateX(0);
+    }
+  }
+}
 @media (max-width: 767px) {
   .sidebar {
-    .sidebar-collapsed & {
       transform: translateX(-100%);
+
+      .sidebar-collapsed & {
+        transform: translateX(-100%);
+      }
+
+      .app-container:not(.sidebar-collapsed) & {
+        transform: translateX(0);
+      }
     }
-  }
 
-  .main-wrapper {
-    padding-left: 0;
-
-    .sidebar-collapsed & {
+    .main-wrapper {
       padding-left: 0;
+      transform: translateX(0);
+
+      .sidebar-collapsed & {
+        padding-left: 0;
+      }
     }
-  }
 
   .header {
     width: 100%;
@@ -204,10 +232,8 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓
   }
 }
 
-// 其他样式
 .iframe-scoped {
 
-  /* 所有样式自动添加作用域 */
   :deep(.bom-li .bom-span a) {
     color: #c00;
   }
