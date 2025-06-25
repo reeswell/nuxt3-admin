@@ -198,7 +198,8 @@ async function handleQuery(params: any) {
 
     return tableData.value
   }
-  catch (error) {
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  catch (e) {
     ElMessage.error('查询销售单失败')
     return []
   }
@@ -308,7 +309,6 @@ const tableProps = {
 
 <style lang="scss" scoped>
 .sales-order-list {
-  padding: 20px;
 
   .page-header {
     display: flex;

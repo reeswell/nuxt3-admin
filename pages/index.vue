@@ -131,35 +131,37 @@ onMounted(() => {
 </script>
 
 <template>
-  <p class="title">标签：</p>
-  <div class="tag-group my-2 flex flex-wrap gap-1 items-center">
-    <span class="tag-group__title m-1 line-height-2">Dark</span>
-    <el-tag v-for="item in items" :key="item.label" :type="item.type" class="mx-1" effect="dark">
-      {{ item.label }}
-    </el-tag>
-    <el-tag v-for="item in items" :key="item.label" :type="item.type" class="mx-1" effect="dark" closable>
-      {{ item.label }}
-    </el-tag>
-  </div>
+  <div>
+    <p class="title">标签：</p>
+    <div class="tag-group my-2 flex flex-wrap gap-1 items-center">
+      <span class="tag-group__title m-1 line-height-2">Dark</span>
+      <el-tag v-for="item in items" :key="item.label" :type="item.type" class="mx-1" effect="dark">
+        {{ item.label }}
+      </el-tag>
+      <el-tag v-for="item in items" :key="item.label" :type="item.type" class="mx-1" effect="dark" closable>
+        {{ item.label }}
+      </el-tag>
+    </div>
 
-  <div class="tag-group my-2 flex flex-wrap gap-1 items-center">
-    <span class="tag-group__title m-1">Plain</span>
-    <el-tag v-for="item in items" :key="item.label" class="mx-1" :type="item.type" effect="plain">
-      {{ item.label }}
-    </el-tag>
-    <el-tag v-for="item in items" :key="item.label" class="mx-1" :type="item.type" effect="plain" closable>
-      {{ item.label }}
-    </el-tag>
-  </div>
-  <!-- 其他模板内容保持不变 -->
-  <div class="p-6">
-    <h1 class="text-2xl font-bold mb-6">颜色展示</h1>
-    <div class="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-10 gap-2">
-      <div v-for="(color, name) in colors" :key="name" class="color-box" @click="copyColor(name)">
-        <div class="h-20 rounded-t-lg" :style="{ backgroundColor: color }" />
-        <div class="p-2 text-sm">
-          <div class="font-medium truncate">--{{ name }}</div>
-          <div class="font-mono text-gray-600">{{ color }}</div>
+    <div class="tag-group my-2 flex flex-wrap gap-1 items-center">
+      <span class="tag-group__title m-1">Plain</span>
+      <el-tag v-for="item in items" :key="item.label" class="mx-1" :type="item.type" effect="plain">
+        {{ item.label }}
+      </el-tag>
+      <el-tag v-for="item in items" :key="item.label" class="mx-1" :type="item.type" effect="plain" closable>
+        {{ item.label }}
+      </el-tag>
+    </div>
+    <!-- 其他模板内容保持不变 -->
+    <div class="p-6">
+      <h1 class="text-2xl font-bold mb-6">颜色展示</h1>
+      <div class="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-10 gap-2">
+        <div v-for="(color, name) in colors" :key="name" class="color-box" @click="copyColor(name)">
+          <div class="h-20 rounded-t-lg" :style="{ backgroundColor: color }" />
+          <div class="p-2 text-sm">
+            <div class="font-medium truncate">--{{ name }}</div>
+            <div class="font-mono text-gray-600">{{ color }}</div>
+          </div>
         </div>
       </div>
     </div>
