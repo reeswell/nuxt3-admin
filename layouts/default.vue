@@ -103,7 +103,6 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓
   padding-left: $sidebar-width;
   min-height: 100vh;
 
-  transform: translateX(0);
   transition: var(--transition), padding $transition-duration $transition-timing;
 
   .sidebar-collapsed & {
@@ -121,13 +120,12 @@ $transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // 标准的Material Design缓
   height: $header-height;
   background-color: white;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-
-  transform: translateX($sidebar-width);
+  left: $sidebar-width;
   transition: var(--transition), width $transition-duration $transition-timing;
 
   .sidebar-collapsed & {
     width: 100%;
-    transform: translateX(0);
+    left: 0;
   }
 
   .toggle-button {
