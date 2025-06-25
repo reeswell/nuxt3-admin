@@ -45,7 +45,7 @@ function togglePassword() {
   <div class="bg-gray-100 flex justify-center items-center h-screen">
     <div class="w-1/2 h-screen hidden lg:block">
       <img
-        src="https://placehold.co/800x/667fff/ffffff.png?text=nuxt3-admin+Image&font=Montserrat"
+        src="https://dummyimage.com/800x/667fff/fff/ffffff.png?text=nuxt3-admin"
         alt="Placeholder Image" class="object-cover w-full h-full"
       >
     </div>
